@@ -34,15 +34,15 @@ def countSpecies(dataList):
 countSpecies(dataList)
 
 def charakterystykaCechy(data, name):
-    dlugoscKielicha = data[name]
+    nazwa = data[name]
     print(f'\nNazwa: {name}')
-    print(f'Minimalna: {min(dlugoscKielicha)}')
-    print(f'Srednia: {np.mean(dlugoscKielicha)}')
-    print(f'Odchylenie standardowe: {np.std(dlugoscKielicha)}')
-    print(f'Mediana: {np.median(dlugoscKielicha)}')
-    print(f'Kwartyl dolny: {np.percentile(dlugoscKielicha, 25)}')
-    print(f'Kwartyl gorny: {np.percentile(dlugoscKielicha, 75)}')
-    print(f'Maksymalna: {max(dlugoscKielicha)}')
+    print(f'Minimalna: {min(nazwa)}')
+    print(f'Srednia: {np.mean(nazwa)}')
+    print(f'Odchylenie standardowe: {np.std(nazwa)}')
+    print(f'Mediana: {np.median(nazwa)}')
+    print(f'Kwartyl dolny: {np.percentile(nazwa, 25)}')
+    print(f'Kwartyl gorny: {np.percentile(nazwa, 75)}')
+    print(f'Maksymalna: {max(nazwa)}')
 
 # Charakterystyka cech dla dlugosci kielicha
 charakterystykaCechy(data, 'Dlugosc kielicha')

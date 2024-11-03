@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 # Wczytaj plik csv
 file = './Zadanie 1 Dane-20241103/data1.csv'
@@ -32,5 +33,25 @@ def countSpecies(dataList):
 # Wywołanie funkcji countSpecies
 countSpecies(dataList)
 
+def charakterystykaCechy(data, name):
+    dlugoscKielicha = data[name]
+    print(f'\nNazwa: {name}')
+    print(f'Minimalna: {min(dlugoscKielicha)}')
+    print(f'Srednia: {np.mean(dlugoscKielicha)}')
+    print(f'Odchylenie standardowe: {np.std(dlugoscKielicha)}')
+    print(f'Mediana: {np.median(dlugoscKielicha)}')
+    print(f'Kwartyl dolny: {np.percentile(dlugoscKielicha, 25)}')
+    print(f'Kwartyl gorny: {np.percentile(dlugoscKielicha, 75)}')
+    print(f'Maksymalna: {max(dlugoscKielicha)}')
 
+# Charakterystyka cech dla dlugosci kielicha
+charakterystykaCechy(data, 'Dlugosc kielicha')
 
+# Charakterystyka cech dla szerokosci kielicha
+charakterystykaCechy(data, 'Szerokosc kielicha')
+
+# Charakterystyka cech dla dlugosci platka
+charakterystykaCechy(data, 'Dlugosc platka')
+
+# Charakterystyka cech dla szerokosci platka
+charakterystykaCechy(data, 'Szerokosc platka')

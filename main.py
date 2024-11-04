@@ -84,13 +84,6 @@ histogram(1, 0, data['Szerokosc kielicha'], 5, 'black', (2.0, 4.5), 'Szerokość
 histogram(2, 0, data['Dlugosc platka'], 12, 'black', (1.0, 7.0), 'Długość płatka', (0, 30))
 histogram(3, 0, data['Szerokosc platka'], 5, 'black', (0.0, 2.5), 'Szerokość płatka', (0, 55))
 
-
-# Przypisanie wartości numerycznych do nazw gatunków
-# spacies_labels - słownik przypisujący wartości numeryczne do nazw gatunków
-# mapowanie wartości numerycznych na nazwy gatunków - zamiana wartości numerycznych na nazwy gatunków w kolumnie 'Gatunek' w obiekcie data
-species_labels = {0: 'Setosa', 1: 'Versicolor', 2: 'Virginica'}
-data['Gatunek'] = data['Gatunek'].map(species_labels)
-
 # Generowanie boxplotów
 def boxplot_by_species(x, y, feature, ylabel, ylim):
 
@@ -98,6 +91,7 @@ def boxplot_by_species(x, y, feature, ylabel, ylim):
     data.boxplot(column=feature, by='Gatunek', ax=axs[x][y], medianprops=dict(color="orange"))
     axs[x][y].set_title('')
     axs[x][y].set_ylim(ylim)
+    axs[x][y].set_xticklabels(['setosa', 'versicolor', 'virginica'])
     axs[x][y].set_xlabel('Gatunek')
     axs[x][y].set_ylabel(ylabel)
     axs[x][y].grid(False)

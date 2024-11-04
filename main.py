@@ -13,30 +13,26 @@ data.columns = ['Dlugosc kielicha', 'Szerokosc kielicha', 'Dlugosc platka', 'Sze
 
 # ------------------- Zadanie 1 -------------------
 
-
-# Konwersja DataFrame do listy list (tablicy dwuwymiarowej)
-dataList = data.values.tolist()
-
 # Zliczanie ilość z danego gatunku
-def countSpecies(dataList):
+def countSpecies(data):
     satosCount = 0
     versicolorCount = 0
     virginicaCount = 0
 
-    for row in dataList:
-        if row[-1] == 0:
+    for value in data:
+        if value == 0:
             satosCount += 1
-        elif row[-1] == 1:
+        elif value == 1:
             versicolorCount += 1
-        elif row[-1] == 2:
+        elif value == 2:
             virginicaCount += 1
-    print(f'Ilosc gatunku satosa: {satosCount}, procentowo: {satosCount / len(dataList) * 100}%')
-    print(f'Ilosc gatunku versicolor: {versicolorCount}, procentowo: {versicolorCount / len(dataList) * 100}%')
-    print(f'Ilosc gatunku virginica: {virginicaCount}, procentowo: {virginicaCount / len(dataList) * 100}%')
-    print(f'Wszystkich gatunkow: {len(dataList)}, procentowo: {len(dataList) / len(dataList) * 100}%')
+    print(f'Ilosc gatunku satosa: {satosCount}, procentowo: {satosCount / len(data) * 100}%')
+    print(f'Ilosc gatunku versicolor: {versicolorCount}, procentowo: {versicolorCount / len(data) * 100}%')
+    print(f'Ilosc gatunku virginica: {virginicaCount}, procentowo: {virginicaCount / len(data) * 100}%')
+    print(f'Wszystkich gatunkow: {len(data)}, procentowo: {len(data) / len(data) * 100}%')
 
 # Wywołanie funkcji countSpecies
-countSpecies(dataList)
+countSpecies(data['Gatunek'])
 
 # Statystyki dla danej cechy
 def featureStatistics(data):

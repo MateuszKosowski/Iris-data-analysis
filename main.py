@@ -95,7 +95,7 @@ data['Gatunek'] = data['Gatunek'].map(species_labels)
 def boxplot_by_species(x, y, feature, ylabel, ylim):
 
     # data.boxplot - generowanie boxplotów, column - cecha, by - grupowanie po gatunku, ax - obiekt typu Axes, na którym rysowany jest boxplot
-    data.boxplot(column=feature, by='Gatunek', ax=axs[x][y])
+    data.boxplot(column=feature, by='Gatunek', ax=axs[x][y], medianprops=dict(color="orange"))
     axs[x][y].set_title('')
     axs[x][y].set_ylim(ylim)
     axs[x][y].set_xlabel('Gatunek')
@@ -104,9 +104,9 @@ def boxplot_by_species(x, y, feature, ylabel, ylim):
 
 # Generowanie boxplotów dla każdej cechy
 boxplot_by_species(0,1, 'Dlugosc kielicha', 'Długość (cm)', (4, 8))
-boxplot_by_species(1,1, 'Szerokosc kielicha', 'Szerokość (cm)', (0, 6))
-boxplot_by_species(2,1, 'Dlugosc platka', 'Długość (cm)', (0,8))
-boxplot_by_species(3,1, 'Szerokosc platka', 'Szerokość (cm)', (0, 4))
+boxplot_by_species(1,1, 'Szerokosc kielicha', 'Szerokość (cm)', (1, 5))
+boxplot_by_species(2,1, 'Dlugosc platka', 'Długość (cm)', (0,7))
+boxplot_by_species(3,1, 'Szerokosc platka', 'Szerokość (cm)', (0, 3))
 
 plt.suptitle('Analiza Irysów')
 plt.subplots_adjust(wspace=0.2, hspace=0.6)

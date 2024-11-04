@@ -62,17 +62,17 @@ charakterystykaCechy(data, 'Szerokosc platka')
 # Funkcja histogram
 # data - dane, name - nazwa kolumny, bins - ilosc przedzialow, edgecolor - kolor krawedzi, range - zakres osi x
 
-def histogram(data, name, bins, edgecolor, range):
+def histogram(data, name, bins, edgecolor, range, title):
     plt.hist(data[name], bins=bins, edgecolor=edgecolor, range=range)
 
     # Opis osi x i y oraz tytul
     plt.xlabel('Długość (cm)')
     plt.ylabel('Liczebność')
-    plt.title(f'DŁugość działki kielicha')
+    plt.title(f'{title}')
 
     # Ustawienie zakresu osi y
     plt.ylim(0, 35)
     plt.show()
 
-# Wywołanie funkcji histogram
-histogram(data, 'Dlugosc kielicha', 8, 'black', (4.0, 8.0))
+# Wywołanie funkcji histogram dla dlugosci kielicha
+histogram(data, 'Dlugosc kielicha', 8, 'black', (4.0, 8.0), 'Długość działki kielicha')

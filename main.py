@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
 # Wczytaj plik csv
 file = './Zadanie 1 Dane-20241103/data1.csv'
@@ -55,3 +56,23 @@ charakterystykaCechy(data, 'Dlugosc platka')
 
 # Charakterystyka cech dla szerokosci platka
 charakterystykaCechy(data, 'Szerokosc platka')
+
+# Histogram dla dlugosci kielicha
+
+# Funkcja histogram
+# data - dane, name - nazwa kolumny, bins - ilosc przedzialow, edgecolor - kolor krawedzi, range - zakres osi x
+
+def histogram(data, name, bins, edgecolor, range):
+    plt.hist(data[name], bins=bins, edgecolor=edgecolor, range=range)
+
+    # Opis osi x i y oraz tytul
+    plt.xlabel('Długość (cm)')
+    plt.ylabel('Liczebność')
+    plt.title(f'DŁugość działki kielicha')
+
+    # Ustawienie zakresu osi y
+    plt.ylim(0, 35)
+    plt.show()
+
+# Wywołanie funkcji histogram
+histogram(data, 'Dlugosc kielicha', 8, 'black', (4.0, 8.0))

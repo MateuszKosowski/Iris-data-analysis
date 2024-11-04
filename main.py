@@ -62,17 +62,36 @@ charakterystykaCechy(data, 'Szerokosc platka')
 # Funkcja histogram
 # data - dane, name - nazwa kolumny, bins - ilosc przedzialow, edgecolor - kolor krawedzi, range - zakres osi x
 
-def histogram(data, name, bins, edgecolor, range, title):
-    plt.hist(data[name], bins=bins, edgecolor=edgecolor, range=range)
+fig, axs = plt.subplots(4, 2, figsize=(12, 15))
+
+def histogram(x, y, data, bins, edgecolor, range, title, ylim):
+    axs[x][y].hist(data, bins=bins, edgecolor=edgecolor, range=range)
 
     # Opis osi x i y oraz tytul
-    plt.xlabel('Długość (cm)')
-    plt.ylabel('Liczebność')
-    plt.title(f'{title}')
+    axs[x][y].set_xlabel('Długość (cm)')
+    axs[x][y].set_ylabel('Liczebność')
+    axs[x][y].set_title(f'{title}')
 
     # Ustawienie zakresu osi y
-    plt.ylim(0, 35)
-    plt.show()
+    axs[x][y].set_ylim(ylim)
+
+def boxplot(x, y, data, ylim):
+    axs[x][y].boxplot(data)
+
+    # Opis osi x i y oraz tytul
+    axs[x][y].set_ylabel('Długość (cm)')
+
+    # Ustawienie zakresu osi y
+    axs[x][y].set_ylim(ylim)
 
 # Wywołanie funkcji histogram dla dlugosci kielicha
-histogram(data, 'Dlugosc kielicha', 8, 'black', (4.0, 8.0), 'Długość działki kielicha')
+histogram(0, 0, data['Dlugosc kielicha'], 8, 'black', (4.0, 8.0), 'Długość działki kielicha', (0, 35))
+histogram(1, 0, data['Szerokosc kielicha'], 5, 'black', (2.0, 4.5), 'Szerokość działki kielicha', (0, 75))
+histogram(2, 0, data['Dlugosc platka'], 12, 'black', (1.0, 7.0), 'Szerokość działki kielicha', (0, 30))
+histogram(3, 0, data['Szerokosc platka'], 5, 'black', (0.0, 2.5), 'Szerokość działki kielicha', (0, 55))
+
+boxplot(1, 0, data['Dlugosc kielicha'], (4, 8))
+
+plt.subplots_adjust(wspace=0.2, hspace=0.6)
+
+plt.show()

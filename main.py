@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Wczytaj plik csv
 file = './Zadanie 1 Dane-20241103/data1.csv'
@@ -56,7 +57,7 @@ featureStatistics(data['Szerokosc platka'] )
 # ------------------- Zadanie 2 -------------------
 
 # fig - obiekt typu Figure, axs - tablica obiektów typu Axes, 4 wiersze, 2 kolumny, figsize - rozmiar wykresu w calach
-fig, axs = plt.subplots(4, 2, figsize=(12, 17))
+fig, axs = plt.subplots(4, 2, figsize=(12, 20))
 
 # Wykresy histogramów
 def histogram(x, y, data, bins, edgecolor, range, title, ylim):
@@ -101,7 +102,50 @@ boxplot_by_species(3,1, 'Szerokosc platka', 'Szerokość (cm)', (0, 3))
 plt.suptitle('Analiza Irysów')
 plt.subplots_adjust(wspace=0.2, hspace=0.6)
 
+# ------------------
+
+def correlations():
+    # Włączenie trybu interaktywnego, aby nowe wykresy otwierały się w osobnych oknach
+    plt.ion()
+
+    # Tworzymy nową figurę i ustawiamy jej rozmiar
+    fig2, axs2 = plt.subplots(3, 2, figsize=(8, 14))
+
+    # Ustawienie odstępów między wykresami
+    plt.subplots_adjust(wspace=0.3, hspace=0.6)
+
+    # Analiza regresji i wykres dla każdej pary cech
+    plot_idx = 0  # Używamy pojedynczego indeksu do iteracji po siatce
+    for i in range(len(data.columns) - 1):
+        for j in range(i + 1, len(data.columns) - 1):
+            x = data[data.columns[i]]
+            y = data[data.columns[j]]
+
+            # Obliczenie współczynnika korelacji
+            correlation = np.corrcoef(x, y)[0, 1]
+
+            # Obliczenie parametrów regresji liniowej
+            slope, intercept = np.polyfit(x, y, 1)
+            regression_line = slope * x + intercept
+
+            # Przypisanie wykresu do odpowiedniej pozycji w siatce (wiersz, kolumna)
+            row, col = divmod(plot_idx, 2)  # Obliczamy pozycję na siatce (3 wiersze, 2 kolumny)
+            sns.scatterplot(x=x, y=y, ax=axs2[row, col], s=60, edgecolor=None)
+            axs2[row, col].plot(x, regression_line, color="red")
+
+            # Ustawienia tytułów i etykiet
+            axs2[row, col].set_xlabel(data.columns[i])
+            axs2[row, col].set_ylabel(data.columns[j])
+            axs2[row, col].set_title(f'r = {correlation:.2f}; y = {slope:.2f}x + {intercept:.2f}')
+
+            plot_idx += 1  # Przechodzimy do kolejnego miejsca na siatce
+
+    # Wyłączenie trybu interaktywnego i wyświetlenie wykresów
+    plt.ioff()
+
+correlations()
 plt.show()
+
 
 
 

@@ -114,33 +114,51 @@ def correlations():
     # Ustawienie odstępów między wykresami
     plt.subplots_adjust(wspace=0.3, hspace=0.6)
 
+    # Inicjalizacja indeksów wiersza i kolumny
+    row, col = 0, 0
+
     # Analiza regresji i wykres dla każdej pary cech
-    plot_idx = 0  # Używamy pojedynczego indeksu do iteracji po siatce
+
+    # Iterujemy po wszystkich parach cech
     for i in range(len(data.columns) - 1):
         for j in range(i + 1, len(data.columns) - 1):
             x = data[data.columns[i]]
             y = data[data.columns[j]]
 
-            # Obliczenie współczynnika korelacji
+            # Obliczenie współczynnika korelacji, funkcja corrcoef zwraca macierz korelacji, dlatego wybieramy element [0, 1]
             correlation = np.corrcoef(x, y)[0, 1]
 
-            # Obliczenie parametrów regresji liniowej
+            # Obliczenie parametrów regresji liniowej, funkcja polyfit zwraca współczynniki wielomianu, w tym przypadku liniowego
             slope, intercept = np.polyfit(x, y, 1)
+
+            # Obliczenie wartości na prostej regresji
             regression_line = slope * x + intercept
 
             # Przypisanie wykresu do odpowiedniej pozycji w siatce (wiersz, kolumna)
-            row, col = divmod(plot_idx, 2)  # Obliczamy pozycję na siatce (3 wiersze, 2 kolumny)
             sns.scatterplot(x=x, y=y, ax=axs2[row, col], s=60, edgecolor=None)
+
+            # Dodanie prostej regresji
             axs2[row, col].plot(x, regression_line, color="red")
 
             # Ustawienia tytułów i etykiet
             axs2[row, col].set_xlabel(data.columns[i])
             axs2[row, col].set_ylabel(data.columns[j])
-            axs2[row, col].set_title(f'r = {correlation:.2f}; y = {slope:.2f}x + {intercept:.2f}')
 
-            plot_idx += 1  # Przechodzimy do kolejnego miejsca na siatce
+            # Ustawienie zakresu osi x
+            axs2[row, col].set_xlim(x.min() - 0.5, x.max() + 0.5)
 
-    # Wyłączenie trybu interaktywnego i wyświetlenie wykresów
+            # .2f - zaokrąglenie do dwóch miejsc po przecinku
+            axs2[row, col].set_title(f'r = {correlation:.2f}; y = {slope:.1f}x + {intercept:.1f}')
+
+            # Przesunięcie indeksu kolumny
+            col += 1
+            if col >= 2:  # Przechodzimy do nowego wiersza po dwóch kolumnach
+                col = 0
+                row += 1
+            if row >= 3:  # Zatrzymujemy się, jeśli osiągnęliśmy limit wierszy
+                break
+        if row >= 3:
+            break
     plt.ioff()
 
 correlations()

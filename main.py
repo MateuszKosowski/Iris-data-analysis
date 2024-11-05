@@ -99,69 +99,59 @@ boxplot_by_species(1,1, 'Szerokosc kielicha', 'Szerokość (cm)', (1, 5))
 boxplot_by_species(2,1, 'Dlugosc platka', 'Długość (cm)', (0,7))
 boxplot_by_species(3,1, 'Szerokosc platka', 'Szerokość (cm)', (0, 3))
 
+# Ustawienie tytułu wykresu
 plt.suptitle('Analiza Irysów')
 plt.subplots_adjust(wspace=0.2, hspace=0.6)
 
 # ------------------
 
-def correlations():
-    # Włączenie trybu interaktywnego, aby nowe wykresy otwierały się w osobnych oknach
-    plt.ion()
+# Tworzymy nową figurę i ustawiamy jej rozmiar
+fig2, axs2 = plt.subplots(3, 2, figsize=(8, 14))
 
-    # Tworzymy nową figurę i ustawiamy jej rozmiar
-    fig2, axs2 = plt.subplots(3, 2, figsize=(8, 14))
+def correlations(row, col, data, data1, desc, desc1):
 
     # Ustawienie odstępów między wykresami
     plt.subplots_adjust(wspace=0.3, hspace=0.6)
 
-    # Inicjalizacja indeksów wiersza i kolumny
-    row, col = 0, 0
-
     # Analiza regresji i wykres dla każdej pary cech
 
-    # Iterujemy po wszystkich parach cech
-    for i in range(len(data.columns) - 1):
-        for j in range(i + 1, len(data.columns) - 1):
-            x = data[data.columns[i]]
-            y = data[data.columns[j]]
+    x = data
+    y = data1
 
-            # Obliczenie współczynnika korelacji, funkcja corrcoef zwraca macierz korelacji, dlatego wybieramy element [0, 1]
-            correlation = np.corrcoef(x, y)[0, 1]
+    # Obliczenie współczynnika korelacji, funkcja corrcoef zwraca macierz korelacji, dlatego wybieramy element [0, 1]
+    correlation = np.corrcoef(x, y)[0, 1]
 
-            # Obliczenie parametrów regresji liniowej, funkcja polyfit zwraca współczynniki wielomianu, w tym przypadku liniowego
-            slope, intercept = np.polyfit(x, y, 1)
+    # Obliczenie parametrów regresji liniowej, funkcja polyfit zwraca współczynniki wielomianu, w tym przypadku liniowego
+    slope, intercept = np.polyfit(x, y, 1)
 
-            # Obliczenie wartości na prostej regresji
-            regression_line = slope * x + intercept
+    # Obliczenie wartości na prostej regresji
+    regression_line = slope * x + intercept
 
-            # Przypisanie wykresu do odpowiedniej pozycji w siatce (wiersz, kolumna)
-            sns.scatterplot(x=x, y=y, ax=axs2[row, col], s=60, edgecolor=None)
+    # Przypisanie wykresu do odpowiedniej pozycji w siatce (wiersz, kolumna)
+    sns.scatterplot(x=x, y=y, ax=axs2[row, col], s=60, edgecolor=None)
 
-            # Dodanie prostej regresji
-            axs2[row, col].plot(x, regression_line, color="red")
+    # Dodanie prostej regresji
+    axs2[row, col].plot(x, regression_line, color="red")
 
-            # Ustawienia tytułów i etykiet
-            axs2[row, col].set_xlabel(data.columns[i])
-            axs2[row, col].set_ylabel(data.columns[j])
+    # Ustawienia tytułów i etykiet
+    axs2[row, col].set_xlabel(desc)
+    axs2[row, col].set_ylabel(desc1)
 
-            # Ustawienie zakresu osi x
-            axs2[row, col].set_xlim(x.min() - 0.5, x.max() + 0.5)
+    # Ustawienie zakresu osi x
+    axs2[row, col].set_xlim(x.min() - 0.5, x.max() + 0.5)
 
-            # .2f - zaokrąglenie do dwóch miejsc po przecinku
-            axs2[row, col].set_title(f'r = {correlation:.2f}; y = {slope:.1f}x + {intercept:.1f}')
+    # .2f - zaokrąglenie do dwóch miejsc po przecinku
+    axs2[row, col].set_title(f'r = {correlation:.2f}; y = {slope:.1f}x + {intercept:.1f}')
 
-            # Przesunięcie indeksu kolumny
-            col += 1
-            if col >= 2:  # Przechodzimy do nowego wiersza po dwóch kolumnach
-                col = 0
-                row += 1
-            if row >= 3:  # Zatrzymujemy się, jeśli osiągnęliśmy limit wierszy
-                break
-        if row >= 3:
-            break
-    plt.ioff()
+# Wywołanie funkcji correlations dla każdej pary cech
+correlations(0, 0, data['Dlugosc kielicha'], data['Szerokosc kielicha'], 'Długość działki kielicha (cm)', 'Szerokość działki kielicha (cm)')
+correlations(0, 1, data['Dlugosc kielicha'], data['Dlugosc platka'], 'Długość działki kielicha (cm)', 'Długość płatka (cm)')
+correlations(1, 0, data['Dlugosc kielicha'], data['Szerokosc platka'], 'Długość działki kielicha (cm)', 'Szerokość płatka (cm)')
+correlations(1, 1, data['Szerokosc kielicha'], data['Dlugosc platka'], 'Szerokość działki kielicha (cm)', 'Długość płatka (cm)')
+correlations(2, 0, data['Szerokosc kielicha'], data['Szerokosc platka'], 'Szerokość działki kielicha (cm)', 'Szerokość płatka (cm)')
+correlations(2, 1, data['Dlugosc platka'], data['Szerokosc platka'], 'Długość płatka (cm)', 'Szerokość płatka (cm)')
 
-correlations()
+# Wyświetlenie wykresów
 plt.show()
 
 

@@ -66,7 +66,7 @@ featureStatistics(data['Szerokosc platka'] )
 # ------------------- Zadanie 2 -------------------
 
 # fig - obiekt typu Figure, axs - tablica obiektów typu Axes, 4 wiersze, 2 kolumny, figsize - rozmiar wykresu w calach
-fig, axs = plt.subplots(4, 2, figsize=(12, 20))
+fig, axs = plt.subplots(4, 2, figsize=(12, 18))
 
 def histogram(x, y, data, bins, range, title, ylim):
     """

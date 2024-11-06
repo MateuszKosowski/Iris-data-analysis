@@ -13,8 +13,13 @@ data.columns = ['Dlugosc kielicha', 'Szerokosc kielicha', 'Dlugosc platka', 'Sze
 
 # ------------------- Zadanie 1 -------------------
 
-# Zliczanie ilość z danego gatunku
 def countSpecies(data):
+    """
+    Zlicza i wyświetla liczbę wystąpień każdego gatunku w danych.
+    :param data: dane numeryczne dla gatunków.
+    :return: None
+    """
+
     satosCount = 0
     versicolorCount = 0
     virginicaCount = 0
@@ -34,8 +39,13 @@ def countSpecies(data):
 # Wywołanie funkcji countSpecies
 countSpecies(data['Gatunek'])
 
-# Statystyki dla danej cechy
 def featureStatistics(data):
+    """
+    Oblicza i wyświetla statystyki opisowe dla danej cechy rośliny.
+    :param data: dane numeryczne dla danej cechy.
+    :return: None
+    """
+
     print(f'\nNazwa: {data.name}')
     print(f'Minimalna: {min(data)}')
     print(f'Srednia: {np.mean(data)}')
@@ -58,12 +68,22 @@ featureStatistics(data['Szerokosc platka'] )
 # fig - obiekt typu Figure, axs - tablica obiektów typu Axes, 4 wiersze, 2 kolumny, figsize - rozmiar wykresu w calach
 fig, axs = plt.subplots(4, 2, figsize=(12, 20))
 
-# Wykresy histogramów
-def histogram(x, y, data, bins, edgecolor, range, title, ylim):
+def histogram(x, y, data, bins, range, title, ylim):
+    """
+    Rysuje histogram dla wybranej cechy rośliny na wskazanej osi wykresu.
+    :param x: indeks wiersza osi na wykresie.
+    :param y: indeks kolumny osi na wykresie.
+    :param data: dane dla danej cechy.
+    :param bins: liczba przedziałów histogramu.
+    :param range: zakres wartości na osi x.
+    :param title: tytuł wykresu.
+    :param ylim: zakres wartości na osi y.
+    :return: None
+    """
 
     # axs[x][y] - obiekt typu Axes, na którym rysowany jest histogram
     # data - dane, bins - liczba przedziałów, edgecolor - kolor krawędzi, range - zakres danych, title - tytuł wykresu, ylim - zakres osi y
-    axs[x][y].hist(data, bins=bins, edgecolor=edgecolor, range=range)
+    axs[x][y].hist(data, bins=bins, edgecolor='black', range=range)
 
     # Opis osi x i y oraz tytul
     axs[x][y].set_xlabel('Długość (cm)')
@@ -75,13 +95,22 @@ def histogram(x, y, data, bins, edgecolor, range, title, ylim):
 
 
 # Wywołanie funkcji histogram dla każdej cechy
-histogram(0, 0, data['Dlugosc kielicha'], 8, 'black', (4.0, 8.0), 'Długość działki kielicha', (0, 35))
-histogram(1, 0, data['Szerokosc kielicha'], 5, 'black', (2.0, 4.5), 'Szerokość działki kielicha', (0, 75))
-histogram(2, 0, data['Dlugosc platka'], 12, 'black', (1.0, 7.0), 'Długość płatka', (0, 30))
-histogram(3, 0, data['Szerokosc platka'], 5, 'black', (0.0, 2.5), 'Szerokość płatka', (0, 55))
+histogram(0, 0, data['Dlugosc kielicha'], 8, (4.0, 8.0), 'Długość działki kielicha', (0, 35))
+histogram(1, 0, data['Szerokosc kielicha'], 5, (2.0, 4.5), 'Szerokość działki kielicha', (0, 75))
+histogram(2, 0, data['Dlugosc platka'], 12, (1.0, 7.0), 'Długość płatka', (0, 30))
+histogram(3, 0, data['Szerokosc platka'], 5, (0.0, 2.5), 'Szerokość płatka', (0, 55))
 
 # Generowanie boxplotów
 def boxplot_by_species(x, y, feature, ylabel, ylim):
+    """
+    Generuje boxploty dla danej cechy rośliny, grupując dane według gatunku.
+    :param x: indeks wiersza osi na wykresie.
+    :param y: indeks kolumny osi na wykresie.
+    :param feature: cecha rośliny.
+    :param ylabel: opis osi y.
+    :param ylim: zakres wartości na osi y.
+    :return: None
+    """
 
     # data.boxplot - generowanie boxplotów, column - cecha, by - grupowanie po gatunku, ax - obiekt typu Axes, na którym rysowany jest boxplot
     data.boxplot(column=feature, by='Gatunek', ax=axs[x][y], medianprops=dict(color="orange"))
@@ -99,7 +128,7 @@ boxplot_by_species(2,1, 'Dlugosc platka', 'Długość (cm)', (0,7))
 boxplot_by_species(3,1, 'Szerokosc platka', 'Szerokość (cm)', (0, 3))
 
 # Ustawienie tytułu wykresu
-plt.suptitle('Analiza Irysów')
+plt.suptitle('')
 plt.subplots_adjust(wspace=0.2, hspace=0.6)
 
 # ------------------- Zadanie 3 -------------------
@@ -108,6 +137,16 @@ plt.subplots_adjust(wspace=0.2, hspace=0.6)
 fig2, axs2 = plt.subplots(3, 2, figsize=(8, 14))
 
 def correlations(row, col, data, data1, desc, desc1):
+    """
+    Rysuje wykres punktowy wraz z linią regresji i wyświetla współczynnik korelacji dla dwóch cech.
+    :param row: indeks wiersza osi na wykresie.
+    :param col: indeks kolumny osi na wykresie.
+    :param data: dane numeryczne dla jednej cechy.
+    :param data1: dane numeryczne dla drugiej cechy.
+    :param desc: opis osi x.
+    :param desc1: opis osi y.
+    :return: None
+    """
 
     # Ustawienie odstępów między wykresami
     plt.subplots_adjust(wspace=0.3, hspace=0.6)

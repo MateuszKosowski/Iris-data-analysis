@@ -56,7 +56,7 @@ featureStatistics(data['Szerokosc platka'] )
 # ------------------- Zadanie 2 -------------------
 
 # fig - obiekt typu Figure, axs - tablica obiektów typu Axes, 4 wiersze, 2 kolumny, figsize - rozmiar wykresu w calach
-fig, axs = plt.subplots(4, 2, figsize=(12, 20))
+fig, axs = plt.subplots(4, 2, figsize=(12, 18))
 
 # Wykresy histogramów
 def histogram(x, y, data, bins, edgecolor, range, title, ylim):
@@ -99,7 +99,7 @@ boxplot_by_species(2,1, 'Dlugosc platka', 'Długość (cm)', (0,7))
 boxplot_by_species(3,1, 'Szerokosc platka', 'Szerokość (cm)', (0, 3))
 
 # Ustawienie tytułu wykresu
-plt.suptitle('Analiza Irysów')
+plt.suptitle('')
 plt.subplots_adjust(wspace=0.2, hspace=0.6)
 
 # ------------------- Zadanie 3 -------------------

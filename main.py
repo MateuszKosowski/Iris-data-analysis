@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sns
 
 # Wczytaj plik csv
 file = './Zadanie 1 Dane-20241103/data1.csv'
@@ -103,7 +102,7 @@ boxplot_by_species(3,1, 'Szerokosc platka', 'Szerokość (cm)', (0, 3))
 plt.suptitle('Analiza Irysów')
 plt.subplots_adjust(wspace=0.2, hspace=0.6)
 
-# ------------------
+# ------------------- Zadanie 3 -------------------
 
 # Tworzymy nową figurę i ustawiamy jej rozmiar
 fig2, axs2 = plt.subplots(3, 2, figsize=(8, 14))
@@ -128,7 +127,7 @@ def correlations(row, col, data, data1, desc, desc1):
     regression_line = slope * x + intercept
 
     # Przypisanie wykresu do odpowiedniej pozycji w siatce (wiersz, kolumna)
-    sns.scatterplot(x=x, y=y, ax=axs2[row, col], s=60, edgecolor=None)
+    axs2[row, col].scatter(x, y, s=60, edgecolor='none')
 
     # Dodanie prostej regresji
     axs2[row, col].plot(x, regression_line, color="red")

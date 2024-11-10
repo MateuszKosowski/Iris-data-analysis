@@ -19,20 +19,20 @@ def count_species(species_data):
     :return: None
     """
 
-    satosCount = 0
-    versicolorCount = 0
-    virginicaCount = 0
+    satos_count = 0
+    versicolor_count = 0
+    virginica_count = 0
 
     for value in species_data:
         if value == 0:
-            satosCount += 1
+            satos_count += 1
         elif value == 1:
-            versicolorCount += 1
+            versicolor_count += 1
         elif value == 2:
-            virginicaCount += 1
-    print(f'Ilosc gatunku satosa: {satosCount}, procentowo: {satosCount / len(species_data) * 100}%')
-    print(f'Ilosc gatunku versicolor: {versicolorCount}, procentowo: {versicolorCount / len(species_data) * 100}%')
-    print(f'Ilosc gatunku virginica: {virginicaCount}, procentowo: {virginicaCount / len(species_data) * 100}%')
+            virginica_count += 1
+    print(f'Ilosc gatunku satosa: {satos_count}, procentowo: {satos_count / len(species_data) * 100}%')
+    print(f'Ilosc gatunku versicolor: {versicolor_count}, procentowo: {versicolor_count / len(species_data) * 100}%')
+    print(f'Ilosc gatunku virginica: {virginica_count}, procentowo: {virginica_count / len(species_data) * 100}%')
     print(f'Wszystkich gatunkow: {len(species_data)}, procentowo: {len(species_data) / len(species_data) * 100}%')
 
 # Wywołanie funkcji countSpecies

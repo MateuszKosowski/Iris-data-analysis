@@ -48,7 +48,7 @@ def feature_statistics(feature_data):
     print(f'\nNazwa: {feature_data.name}')
     print(f'Minimalna: {min(feature_data)}')
     print(f'Srednia: {np.mean(feature_data)}')
-    print(f'Odchylenie standardowe: {np.std(feature_data)}')
+    print(f'Odchylenie standardowe: {np.std(feature_data, ddof=1)}')
     print(f'Mediana: {np.median(feature_data)}')
     print(f'Kwartyl dolny: {np.percentile(feature_data, 25)}')
     print(f'Kwartyl gorny: {np.percentile(feature_data, 75)}')
